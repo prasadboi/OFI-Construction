@@ -70,11 +70,13 @@ def aggregate_time_bins(df: pd.DataFrame, freq: str = '1min', levels: int = 10) 
     print(out.info())
     return out
 
-def compute_best_ofi(df: pd.DataFrame) -> pd.DataFrame:
+def compute_best_ofi(df: pd.DataFrame, levels = 10) -> pd.DataFrame:
     """
     For each symbol and timestamp, compute best_ofi as:
       best_ofi = ofi_0 - ofi_0
     """
+    if levels == 0:
+        raise ValueError("levels must be > 0")
     df['best_ofi'] = df['ofi_0']
     return df
 
@@ -121,13 +123,15 @@ if __name__ == "__main__":
                     compute_best_ofi(
                         aggregate_time_bins(
                             compute_event_ofis(raw, levels=10),
-                            freq='1T', levels=10
+                            freq='1min', 
+                            levels=10
                         )
                     ),
                     levels=10
                 ),
                 levels=10
-            )
+            ),
+            levels=10
         )
     )
     # final now has: ts_bin, symbol, best_ofi, ofi_0…ofi_9, multi_level_ofi, int_ofi, cross_asset_ofi
