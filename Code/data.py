@@ -115,7 +115,7 @@ def compute_cross_asset_ofi(df_int: pd.DataFrame, levels = 10) -> pd.DataFrame:
     return df_int
 
 if __name__ == "__main__":
-    raw = load_order_book("/home/arjun-prasad/ARJUN/Work/Projects/OFI-Construction/Data/raw_lob.csv")
+    raw = load_order_book("../Data/raw_lob.csv")
     final = (
         compute_cross_asset_ofi(
             compute_integrated_ofi(
@@ -136,5 +136,5 @@ if __name__ == "__main__":
         )
     )
     # final now has: ts_bin, symbol, best_ofi, ofi_0…ofi_9, multi_level_ofi, int_ofi, cross_asset_ofi
-    final.to_csv("/home/arjun-prasad/ARJUN/Work/Projects/OFI-Construction/Data/processed_lob.csv", index=False)
+    final.to_csv("../Data/processed_lob.csv", index=False)
     print(final.head(30))
