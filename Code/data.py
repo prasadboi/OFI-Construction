@@ -125,7 +125,8 @@ if __name__ == "__main__":
                             compute_event_ofis(raw, levels=10),
                             freq='1min', 
                             levels=10
-                        )
+                        ),
+                        levels=10
                     ),
                     levels=10
                 ),
